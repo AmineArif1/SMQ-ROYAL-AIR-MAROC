@@ -1,0 +1,85 @@
+*{
+  margin:0
+}
+.logo{
+  width:250px
+}
+.container{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap:15px;
+  transform:translateY(8vw)
+}
+.auth--input{
+  font-family: 'Roboto Mono', monospace;
+  width:280px;
+  height: 40px;
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px black;
+  padding-left: 20px;
+  font-size: 20px;
+  
+}
+.auth--submit{
+  background-color: rgb(203,32,32);
+  border-width: 0;
+  border-radius: 20px;
+  width:100px;
+  height:50px;
+  color:white;
+  box-shadow: 2px 2px 2px black;
+}
+.top-sinta{
+  position:absolute;
+  top:0;
+  background-color:rgb(158,25,46) ;
+  width:100%;
+  height:10vh;;
+  z-index: -1;
+  
+
+}
+.logout{
+  
+  color:white;
+  background-color: rgb(158,25,46);
+  border-width: 0;
+  float:right;
+  margin:4vh;
+  font-size:15px;
+  
+}
+
+
+.chose--logo{
+  width:200px;
+  margin-left:10vw;
+}
+/* elarifamine1@gmail.com */
+.user--table{
+  
+  margin-top: 10vh;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  
+  justify-content: center;
+}
+.user--table th{
+  padding:2vh 3.2vw;
+}
+tr{
+  background-color: rgba(176, 149, 149,.3);
+}
+tr:nth-child(1){
+  background-color: rgb(222, 129, 129);
+}
+
+.users--button{
+  border-width: 0;
+  background-color: rgb(43, 148, 167);
+  padding:5px 10px;
+  border-radius: 10px;
+  font-family: 'Roboto', sans-serif;
+
+}
