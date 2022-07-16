@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import {useState,useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import Axios from 'axios';
+
 let authorized=false;
 function Auth(){
     
@@ -23,15 +24,16 @@ function Auth(){
 
 function submit(){
 
-Axios.post('http://localhost:3002/api/insert',{
+Axios.post('http://localhost:3002/api/login',{
         "username":username,
         "password":password
 }).then((response)=>{
     if(!response.data.message){
+    
     authorized=true;
+    window.token= response.data.token;
     history.push('/Users');
-    setResponse((re)=>
-    response.data[0].name);}
+    }
     else{
         setResponse((re)=>
         response.data.message);

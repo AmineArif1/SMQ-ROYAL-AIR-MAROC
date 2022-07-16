@@ -68,10 +68,10 @@
 .user--table th{
   padding:2vh 3.2vw;
 }
-tr{
+.user--table tr{
   background-color: rgba(176, 149, 149,.3);
 }
-tr:nth-child(1){
+.user--table tr:nth-child(1){
   background-color: rgb(222, 129, 129);
 }
 
@@ -82,4 +82,61 @@ tr:nth-child(1){
   border-radius: 10px;
   font-family: 'Roboto', sans-serif;
 
+}
+.add--users{
+  
+  margin-top: 5vh;
+  display:flex;
+ 
+  flex-direction: column;
+  background-color: rgb(170, 170, 170);
+  
+  width:40vw;
+  margin-left: 30vw;
+  border-radius: 60px;
+  
+  
+
+}
+.add--users-row{
+  margin-top: 5vh;
+  display:flex;
+  align-items: center;
+  
+  
+
+}
+.add--users th{
+  padding:0vw 2vw;
+}
+.add--users input{
+  height:30px;
+  width:70%;
+  display:flex;
+  margin-left:13% ;
+  border-radius: 10px;
+  text-align: center;
+}
+.ktab{
+  padding:2vh 0px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+.centerbutton{
+  margin-left: 45vw;
+  margin-top: 5vh;
+  background-color: rgb(234, 61, 61);
+}
+.add--submit{
+  width:15vw;
+  display: flex;
+  margin-left: 20vw;
+  text-align: center;
+}
+.center--button{
+  
+  margin-left: 16vw;
+  margin-top: 2vh;
+  box-shadow:0 0 0 white;
+  
 }

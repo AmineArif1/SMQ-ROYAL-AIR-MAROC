@@ -2,26 +2,56 @@ import { Redirect } from "react-router-dom"
 import {useEffect, useState} from 'react'
 import Header from './Header'
 import Axios from 'axios';
+
 export default function Users(props){
     
-    
+ 
     let [row,setRow]=useState([]);
+    let [username,setUsername]=useState('');
+    let [password,setPassword]=useState('');
+    let [nom,setNom]=useState('');
+    let [prenom,setPrenom]=useState('');
+    let [token,setToken]=useState('');
+    
+    let [buttonAdd,setbuttonAdd]=useState(true)
+   
+    function submit(){
 
+        Axios.post('http://localhost:3002/api/addUser',{
+                
+                "username":username,
+                "password":password,
+                "nom":nom,
+                "prenom":prenom,
+                answer:window.token
+
+        }).then((response)=>{
+            if(!response.data.message){
+               
+              
+            
+                Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>setRow(response.data)) 
+            
+        }
+           
+        })
+    }
+
+    
     const handleClickDelete = (event, param) => {
         
-        Axios.post("http://localhost:3002/api/delete",{"id":param}).then(()=>{
-            Axios.get("http://localhost:3002/api/get").then((response)=>setRow(response.data)) 
+        Axios.post("http://localhost:3002/api/delete",{"id":param,answer:window.token}).then(()=>{
+            Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>setRow(response.data)) 
         })
       };
       const handleClickUpdate= (event, param,stat) => {
-        console.log(param,stat)
         if(!stat)
-        Axios.post("http://localhost:3002/api/Yadmin",{"id":param}).then(()=>{
-            Axios.get("http://localhost:3002/api/get").then((response)=>setRow(response.data)) 
+        Axios.post("http://localhost:3002/api/Yadmin",{"id":param,answer:window.token}).then(()=>{
+            Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>setRow(response.data)) 
 
         })
-        else Axios.post("http://localhost:3002/api/Nadmin",{"id":param}).then(()=>{
-            Axios.get("http://localhost:3002/api/get").then((response)=>setRow(response.data)) 
+        else Axios.post("http://localhost:3002/api/Nadmin",{"id":param,answer:window.token}).then(()=>{
+            Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>setRow(response.data)) 
         })
       };
     
@@ -38,7 +68,8 @@ export default function Users(props){
 
     // elarifamine1@gmail.com
     useEffect(() => {
-        Axios.get("http://localhost:3002/api/get").then((response)=>setRow(response.data))    
+        
+        Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>setRow(response.data))    
         //Runs on every render
       },[]);
 
@@ -46,7 +77,7 @@ export default function Users(props){
         return <Redirect to="/"/>
     }
     
-    
+  
     let idrow=row.map((res)=>{
         
         return(
@@ -62,7 +93,7 @@ export default function Users(props){
             </tr>
         )
     })
-   
+    
     return (
     <>
     <Header/>
@@ -71,6 +102,7 @@ export default function Users(props){
     <table className="user--table   ">
     <tbody>
         <tr>
+            
             <th>NOM</th>
             <th>PRENOM</th>
             <th>EMAIL</th>
@@ -79,14 +111,27 @@ export default function Users(props){
             <th>DELETE</th>
         </tr>
        {idrow}
+
        <tr>
-      
+        
         
        </tr>
     </tbody>
+  
     </table>
     
+    {buttonAdd ? <button className="auth--submit centerbutton" onClick={event=>setbuttonAdd(!buttonAdd)} >ajouter un utilisateur</button> :<div className="add--users">
+       
+       
+       <div className="ktab" >Email :</div><input className="add--input " type="text" onChange={(e)=>{setUsername(e.target.value)}}></input>
+       <div className="ktab">Password : </div>  <input className="add--input" type="text" onChange={(e)=>{setPassword(e.target.value)}}></input>
+       <div className="ktab">Nom :</div><input className="add--input" type="text" onChange={(e)=>{setNom(e.target.value)}}></input>
+       <span className="ktab">Prenom :</span> <input className="add--input" type="text" onChange={(e)=>{setPrenom(e.target.value)}}></input>
+           <button className="auth--submit center--button" onClick={submit} >Confirmer</button>,
+
+           
+   </div> }
     
-    </>
+    </> 
     )
 }
