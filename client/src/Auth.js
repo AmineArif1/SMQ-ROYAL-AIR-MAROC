@@ -32,7 +32,7 @@ Axios.post('http://localhost:3002/api/login',{
     
     authorized=true;
     window.token= response.data.token;
-    history.push('/Users');
+    history.push('/Main');
     }
     else{
         setResponse((re)=>

@@ -12,11 +12,13 @@ export default function Users(props){
     let [nom,setNom]=useState('');
     let [prenom,setPrenom]=useState('');
     let [token,setToken]=useState('');
+    const [isLoading, setIsLoading] = useState(false);
     
     let [buttonAdd,setbuttonAdd]=useState(true)
-   
+    
     function submit(){
-
+       
+        setIsLoading(true);
         Axios.post('http://localhost:3002/api/addUser',{
                 
                 "username":username,
@@ -29,30 +31,44 @@ export default function Users(props){
             if(!response.data.message){
                
               
-            
-                Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>setRow(response.data)) 
-            
+                
+                Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>{
+                setIsLoading(false);    
+                setRow(response.data)})
+                 
+               
         }
+       
            
         })
     }
 
     
     const handleClickDelete = (event, param) => {
-        
+        setIsLoading(true);
         Axios.post("http://localhost:3002/api/delete",{"id":param,answer:window.token}).then(()=>{
-            Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>setRow(response.data)) 
+            Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>{
+                setIsLoading(false);
+                
+                setRow(response.data)}) 
         })
+       
       };
       const handleClickUpdate= (event, param,stat) => {
+        setIsLoading(true);
         if(!stat)
         Axios.post("http://localhost:3002/api/Yadmin",{"id":param,answer:window.token}).then(()=>{
-            Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>setRow(response.data)) 
-
+            Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>{
+                setIsLoading(false);
+                setRow(response.data)}) 
         })
+        
         else Axios.post("http://localhost:3002/api/Nadmin",{"id":param,answer:window.token}).then(()=>{
-            Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>setRow(response.data)) 
+            Axios.get("http://localhost:3002/api/get",{ params: { answer: window.token } }).then((response)=>{
+                setIsLoading(false);
+                setRow(response.data)}) 
         })
+       
       };
     
     // const interval1 = setInterval(handleClickDelete,50);
@@ -131,7 +147,21 @@ export default function Users(props){
 
            
    </div> }
+   {isLoading &&
+   <>
+   <div className="graybackground"></div>
+   <div class="loader">
     
+     
+      <div class="plane">
+        <img src="https://zupimages.net/up/19/34/4820.gif" class="plane-img"></img>
+      </div>
+      <div class="earth-wrapper">
+        <div class="earth"></div>
+      </div>  
+
+    </div>
+    </>     }
     </> 
     )
 }

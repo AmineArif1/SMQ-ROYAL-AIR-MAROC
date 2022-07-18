@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import { useHistory } from "react-router-dom";
-import Img from './logo.jpg'
+import Img from './img/logo.jpg'
 export default function Header(){
     let history=useHistory();
     function click(){

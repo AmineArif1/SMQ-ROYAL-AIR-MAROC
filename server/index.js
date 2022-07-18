@@ -58,7 +58,9 @@ app.post("/api/login",(req,res)=>{
           "my_secret_key");
         res.json({
           token:token
+          
         });
+        console.log(token)
         
       }
      
@@ -176,7 +178,88 @@ app.get("/api/get",(req,res)=>{
     }) 
     }})}) 
 
+// main
+// getting processus
+app.get("/api/getproc",(req,res)=>{
+  
+  const sqlquery="select * from processus;";
+  db.query(sqlquery,(err,result)=>(
+  res.send(result)))
+}
+)
+// ajouté libellé
+app.post("/api/addproc",(req,res)=>{
+ 
+
+  let proc=req.body.processus;
+
+  
+  db.query(
+    "insert into processus(libellé) values(?)",
+    [proc],
+    (err,result)=>{
+   
+    if(err){
+      
+      console.log({err:err})
+      res.send(err)
+    }
+    res.send(result)
+    // http://localhost:3002/api/addUser
+
+})
+})
+app.post("/api/procdelete",(req,res)=>{
+    let id=req.body.id;
+    db.query(
+    "delete from processus where id_processus=?",
+    [id],
+    (err,result)=>{
+   
+    if(err){
+      
+      console.log({err:err})
+    }
+    res.send(result)
+  
+  
+  
+
+}) }
+)
+
+app.post("/api/fichiers",(req,res)=>{
+  
+  
+  let id=req.body.id;
+
+  db.query(
+  "select * from fichier where id_processus=?",
+  [id],
+  (err,result)=>{
+ 
+  if(err){
+    
+    console.log({err:err})
+  }
+  res.send(result)
+ 
+
+
+
+
+}) }
+)
+
+
+
+
 app.listen(3002,()=>{
     console.log("running on 3002")
 }
 )
+
+
+
+  
+
